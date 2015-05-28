@@ -1,21 +1,31 @@
-import React, {NavigatorIOS} from 'react-native';
+import React, {NavigatorIOS, StyleSheet} from 'react-native';
 
 import ArticleList from './articles/ArticleList';
+
+
+let styles = StyleSheet.create({
+
+  navigator: {
+    flex: 1
+  }
+
+});
 
 
 class Router extends React.Component {
 
   render() {
 
+    let initialRoute = {
+      title: 'HN - Top Stories',
+      component: ArticleList
+    };
+
     return (
       <NavigatorIOS
-        style={{flex: 1}}
-        initialRoute={{
-          title: 'UIExplorer',
-          component: ArticleList
-        }}
+        style={styles.navigator}
+        initialRoute={initialRoute}
         barTintColor="#ff6600"
-        itemWrapperStyle={{flex: 1}}
       />
     );
 

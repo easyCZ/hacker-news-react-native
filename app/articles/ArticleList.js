@@ -1,37 +1,46 @@
-var React = require('react-native');
-var {
-  View,
-  Text,
-  NavigatorIOS,
-  Navigator,
-} = React;
+import React, {ListView, Text} from 'react-native';
+import ArticleListStyleSheet from './ArticleListStyleSheet';
+import HackerNews from '../api/HackerNews';
 
-var TestView = React.createClass({
 
-  render: function render() {
-    return <Text>{this.props.test}</Text>;
+class ArticleList extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.DataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+
+
+    this.state = {
+      stories: this.DataSource.cloneWithRows([])
+    };
+
+    HackerNews
+      .topStories()
+      .on('value', (stories) => this.onStoriesUpdate(stories.val()))
+
   }
 
-})
+  onStoriesUpdate(stories) {
+    this.setState({
+      stories: this.DataSource.cloneWithRows(stories)
+    });
+  }
 
-var ArticleList = React.createClass({
+  render() {
 
-  render: function render() {
     return (
-      <View style={{backgroundColor: 'red', marginTop: 64}}>
-        <Text>Test</Text>
-        <Text>Test</Text>
-        <Text>Test</Text>
-        <Text>Test</Text>
-        <Text>Test</Text>
-        <Text>Test</Text>
-        <Text>Test</Text>
-
-      </View>
-
+      <ListView
+        dataSource={this.state.stories}
+        initialListSize="36"
+        renderRow={(rowData) => <Text>{rowData}</Text>} />
     )
+
   }
 
-});
+
+}
+
 
 module.exports = ArticleList;
