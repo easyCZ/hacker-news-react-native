@@ -35,13 +35,16 @@ class ArticleList extends React.Component {
     console.log('Update articles', ArticleStore.getArticles());
     this.setState({
       articles: this.articlesDataSource.cloneWithRows(
-        ArticleStore.getArticles().slice(0, 25))
+        ArticleStore.getArticles().slice(0, 10))
     });
   }
 
-  renderRow(rowData, sectionID, rowID, highlightRowFn) {
+  renderRow(rowData, sectionID, rowID, highlightRow) {
+    console.log('highlight', rowData, sectionID, rowID, highlightRow);
     return (
-      <ArticleRow articleId={rowData} />
+      <ArticleRow
+        articleId={rowData}
+        highlightRowFn={highlightRow} />
     );
   }
 
@@ -52,7 +55,7 @@ class ArticleList extends React.Component {
     return (
       <ListView
         dataSource={this.state.articles}
-        initialListSize={25}
+        initialListSize={10}
         renderRow={this.renderRow} />
     )
 

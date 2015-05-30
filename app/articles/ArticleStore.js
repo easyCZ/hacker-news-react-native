@@ -11,6 +11,7 @@ class ArticleStore extends events.EventEmitter {
     super();
   }
 
+
   getArticles() {
     return _articles;
   }
@@ -31,6 +32,27 @@ class ArticleStore extends events.EventEmitter {
     this.removeListener('ARTICLES_CHANGE', callback);
   }
 
+
+  getArticle(id) {
+    return _articleDetails[id];
+  }
+
+  setArticle(id, article) {
+    _articleDetails[id] = article;
+  }
+
+  emitArticleChange(id) {
+    this.emit('ARTICLE_CHANGE:' + id, this.getArticle(id))
+  }
+
+  addArticleChangeListener(id, callback) {
+    this.on('ARTICLE_CHANGE:' + id, callback);
+  }
+
+  removeArticleChangeListener(id, callback) {
+    this.removeListener('ARTICLE_CHANGE:' + id, callback);
+  }
+
 }
 
 let articleStore = new ArticleStore();
@@ -44,6 +66,11 @@ AppDispatcher.register( ({action, source}) => {
     case 'TOP_STORIES:LOADED':
       articleStore.setArticles(data);
       articleStore.emitArticlesChange();
+      break;
+
+    case 'TOP_STORY:LOADED':
+      articleStore.setArticle(data.id, data);
+      articleStore.emitArticleChange(data.id);
       break;
 
     default:

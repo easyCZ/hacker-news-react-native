@@ -11,9 +11,9 @@ class HackerNews {
         return fetch(HACKER_NEWS_API_URL + TOP_STORIES);
     }
 
-    // static story(storyId) {
-    //     return API.child(STORY + storyId);
-    // }
+    static article(id) {
+      return fetch(HACKER_NEWS_API_URL + STORY + id + '.json');
+    }
 
 }
 
