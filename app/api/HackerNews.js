@@ -1,20 +1,18 @@
-import Firebase from 'firebase';
-
+import {fetch} from 'fetch';
 
 let HACKER_NEWS_API_URL = "https://hacker-news.firebaseio.com";
-let TOP_STORIES = 'v0/topstories';
-let STORY = 'v0/item/';
-let API = new Firebase(HACKER_NEWS_API_URL);
+let TOP_STORIES = '/v0/topstories.json';
+let STORY = '/v0/item/';
 
 class HackerNews {
 
     static topStories() {
-        return API.child(TOP_STORIES);
+        return fetch(HACKER_NEWS_API_URL + TOP_STORIES);
     }
 
-    static story(storyId) {
-        return API.child(STORY + storyId);
-    }
+    // static story(storyId) {
+    //     return API.child(STORY + storyId);
+    // }
 
 }
 

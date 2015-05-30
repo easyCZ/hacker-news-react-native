@@ -23,19 +23,27 @@ class ArticleStore extends events.EventEmitter {
     this.emit('ARTICLES_CHANGE', this.getArticles());
   }
 
+  addArticlesChangeListener(callback) {
+    this.on('ARTICLES_CHANGE', callback);
+  }
+
+  removeArticlesChangeListener(callback) {
+    this.removeListener('ARTICLES_CHANGE', callback);
+  }
+
 }
 
 let articleStore = new ArticleStore();
 
 AppDispatcher.register( ({action, source}) => {
 
-  let {actionType, actionData} = action;
+  let {actionType, data} = action;
 
   switch (actionType) {
 
     case 'TOP_STORIES:LOADED':
-      articleStore.setArticles(actionData);
-      articleSstore.emitArticlesChange();
+      articleStore.setArticles(data);
+      articleStore.emitArticlesChange();
       break;
 
     default:
