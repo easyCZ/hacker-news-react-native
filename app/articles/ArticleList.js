@@ -4,8 +4,8 @@ import HackerNews from '../api/HackerNews';
 
 import ArticleStore from './ArticleStore';
 import ArticleActions from './ArticleActions';
+import ArticleRow from './ArticleRow';
 
-console.log('ArticleStore', ArticleStore);
 
 
 class ArticleList extends React.Component {
@@ -24,7 +24,7 @@ class ArticleList extends React.Component {
 
   componentDidMount() {
     ArticleStore.addArticlesChangeListener(this.updateArticles.bind(this));
-    ArticleActions.subscribeToArticles();
+    ArticleActions.getArticles();
   }
 
   componentWillUnmount() {
@@ -34,8 +34,15 @@ class ArticleList extends React.Component {
   updateArticles() {
     console.log('Update articles', ArticleStore.getArticles());
     this.setState({
-      articles: this.articlesDataSource.cloneWithRows(ArticleStore.getArticles())
+      articles: this.articlesDataSource.cloneWithRows(
+        ArticleStore.getArticles().slice(0, 25))
     });
+  }
+
+  renderRow(rowData, sectionID, rowID, highlightRowFn) {
+    return (
+      <ArticleRow articleId={rowData} />
+    );
   }
 
   render() {
@@ -45,8 +52,8 @@ class ArticleList extends React.Component {
     return (
       <ListView
         dataSource={this.state.articles}
-        initialListSize={15}
-        renderRow={(rowData) => <Text>{rowData}</Text>} />
+        initialListSize={25}
+        renderRow={this.renderRow} />
     )
 
   }

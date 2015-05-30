@@ -1,6 +1,7 @@
 import React, {NavigatorIOS, StyleSheet} from 'react-native';
 
 import ArticleList from './articles/ArticleList';
+import ArticleActions from './articles/ArticleActions';
 
 
 let styles = StyleSheet.create({
@@ -18,7 +19,9 @@ class Router extends React.Component {
 
     let initialRoute = {
       title: 'HN - Top Stories',
-      component: ArticleList
+      component: ArticleList,
+      rightButtonTitle: 'Refresh',
+      onRightButtonPress: () => ArticleActions.getArticles()
     };
 
     return (

@@ -20,12 +20,14 @@ let _onStoriesFail = (error) => {
 
 class ArticleActions {
 
-  static subscribeToArticles() {
+  static getArticles() {
     HackerNews
       .topStories()
       .then(r => r.json(), e => _onStoriesFail(e))
       .then(stories => _onStoriesReceive(stories));
   }
+
+
 
 
 }
