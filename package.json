@@ -9,7 +9,10 @@
     "react-native": "^0.4.4"
   },
   "devDependencies": {
+    "babel": "^5.4.7",
+    "events": "^1.0.2",
     "firebase": "^2.2.5",
+    "flux": "^2.0.3",
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
     "react-native-viewport-units": "0.0.3"

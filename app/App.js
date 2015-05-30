@@ -1,4 +1,5 @@
 import React from 'react-native';
+// import 'babel/polyfill'; 
 
 import Router from './Router';
 
