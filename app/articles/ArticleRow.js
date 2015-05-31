@@ -1,4 +1,4 @@
-import React, {View, Text, TouchableHighlight} from 'react-native';
+import React, {View, Text, TouchableHighlight, TouchableOpacity} from 'react-native';
 
 import ArticleRowStyleSheet from './ArticleRowStyleSheet';
 import ArticleActions from './ArticleActions';
@@ -27,17 +27,17 @@ class ArticleRow extends React.Component {
 
     let content;
     if (this.state && this.state.article) {
-      content = (<Text>{this.state.article.title}</Text>)
+      content = this.state.article.title;
     } else {
-      content = (<Text>{this.props.articleId}</Text>);
+      content = this.props.articleId;
     }
 
     return (
       <TouchableHighlight
-        onPress={this.props.highlightRowFn}
-        style={ArticleRowStyleSheet.container}>
+        underlayColor="#fffcfa"
+        style={[ArticleRowStyleSheet.container, {backgroundColor: '#fbf7f5'}]}>
 
-        {content}
+        <Text style={{fontSize: '15'}}>{content}</Text>
 
       </TouchableHighlight>
     );
