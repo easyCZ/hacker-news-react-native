@@ -8,7 +8,18 @@ let ArticleRowStyleSheet = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     height: 10 * vh,
-    width: 100 * vw
+    width: 100 * vw,
+    alignItems: 'center',
+    padding: 5,
+    borderColor: 'orange'
+    // justifyContent: 'center',
+    // alignSelf: 'center'
+  },
+
+  score: {
+    width: 5 * vw,
+    height: 5 * vw,
+    backgroundColor: 'white'
   }
 
 });
